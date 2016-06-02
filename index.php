@@ -65,18 +65,17 @@
           
        
         <div class="input-field col s12 l6">
-          <input placeholder="Search locations" id="first_name" type="text" class="validate">
-          <label for="first_name">Location</label>
+          <input placeholder="Search locations" id="location" type="text" class="validate"  onFocus="geolocate()"/>
+          <label for="location">Location</label>
         </div>
         
         <div class="input-field col s12 l6">
             <select>
-              <option value="" disabled selected>Choose your option</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
+              <option value="1">Single</option>
+              <option value="2">Shared</option>
+             
             </select>
-            <label>Materialize Select</label>
+            <label>Accomodation</label>
         </div>
         <button class="btn waves-effect waves-light search-button" type="submit" name="action">Search
             <i class="material-icons right">search</i>
@@ -105,7 +104,7 @@
             </div>
             <div class="card-action cyan">
            
-                <p class="white-text"> <span class="left pad">Price</span> 15,000</p>
+                <p class="white-text"> <span class="left pad">Price</span> $15,000</p>
                 <p class="white-text"> <span class="left pad">Location</span> Tavern, Papine Jamaica</p>
                 <p class="white-text"> <span class="left pad">Accomodation</span> Single</p>
                 <p class="white-text"> <span class="left pad">Rent type</span> All inclusiive</p>
@@ -122,7 +121,7 @@
             </div>
             <div class="card-action cyan">
            
-                <p class="white-text"> <span class="left pad">Price</span> 15,000</p>
+                <p class="white-text"> <span class="left pad">Price</span> $15,000</p>
                 <p class="white-text"> <span class="left pad">Location</span> Tavern, Papine Jamaica</p>
                 <p class="white-text"> <span class="left pad">Accomodation</span> Single</p>
                 <p class="white-text"> <span class="left pad">Rent type</span> All inclusiive</p>
@@ -138,7 +137,7 @@
             </div>
             <div class="card-action cyan">
            
-                <p class="white-text"> <span class="left pad">Price</span> 15,000</p>
+                <p class="white-text"> <span class="left pad">Price</span> $15,000</p>
                 <p class="white-text"> <span class="left pad">Location</span> Tavern, Papine Jamaica</p>
                 <p class="white-text"> <span class="left pad">Accomodation</span> Single</p>
                 <p class="white-text"> <span class="left pad">Rent type</span> All inclusiive</p>
@@ -300,6 +299,7 @@ footer.page-footer {
 <script type="text/javascript" src="bower_components/Materialize/dist/js/materialize.js"></script>
 <!--<script type="text/javascript"  src="assets/js/jquery.backstretch.js"></script>-->
 <script type="text/javascript" src="ionRangeSlider/js/ion.rangeSlider.js"></script>
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5G9JFJu-6F4zbj3POdmAVGDi2mCQ7coE&libraries=places&callback=initAutocomplete" async defer></script>
 <!--_______________________________JAVASCRIPT FILES________________________________________ -->
 
 
@@ -318,27 +318,49 @@ footer.page-footer {
 $(".button-collapse").sideNav();
 
 /*-------------------SIDE NAVIGATION---------------------*/
+
+
+
+
+/*----------------------ION RANGE SLIDER INITIALIZATION----------------------*/
  $(function () {
+     var from=0,to=20000;
+     var saveResult = function (data) {
+    from = data.from;
+    to = data.to
+    console.log("from: "+from+" to:"+to);
+};
 
         $("#range").ionRangeSlider({
             hide_min_max: true,
             keyboard: true,
             min: 0,
             max: 50000,
-            from: 1000,
-            to: 40000,
+            from: from,
+            to: to,
             type: 'double',
             step: 1000,
             prefix: "$",
-            grid: true
+            grid: true,
+            onLoad: function (data) {
+             saveResult(data);
+            
+         },
+            onChange: saveResult,
+            onFinish: saveResult
         });
 
-    });
+});
+/*----------------------ION RANGE SLIDER INITIALIZATION----------------------*/
+
+
 
 /*DROPDOWN INITIALIZATION*/
+
 $(document).ready(function() {
     $('select').material_select();
   });
+  
 /*DROPDOWN INITIALIZATION*/
     
 </script>
@@ -361,6 +383,46 @@ $(document).ready(function() {
    google.maps.event.addDomListener(window, 'load', initMap);   
 </script>
 <!--_______________________________GOOGLE MAPS________________________________________ -->
+
+
+
+<!----------------------------------AUTOCOMPLETE SETUP-------------------------------- -->
+ <script>
+     
+
+      var autocomplete;
+      
+
+      function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical location types.
+        autocomplete = new google.maps.places.Autocomplete(
+         (document.getElementById('location')),
+            {types: ['geocode']});
+      }
+
+     
+
+      // Bias the autocomplete object to the user's geographical location,
+      // as supplied by the browser's 'navigator.geolocation' object.
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+      }
+    </script>
+<!----------------------------------AUTOCOMPLETE SETUP---------------------------------->
+
+
 
 
 <!--_______________________________JAVASCRIPT FUNCTIONS________________________________________ -->
