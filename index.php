@@ -12,8 +12,68 @@
         <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5G9JFJu-6F4zbj3POdmAVGDi2mCQ7coE&callback=initMap"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5G9JFJu-6F4zbj3POdmAVGDi2mCQ7coE&libraries=places&callback=initAutocomplete" async defer></script>
         <title>Test</title>
+        
+     
+<script>
+     
+
+      var autocomplete;
+      function initAutocomplete() {
+          /* <!--_______________________________GOOGLE MAPS________________________________________ -->  */
+          var map;
+          var jamaica = new google.maps.LatLng(18.0104288,-76.741323);
+          function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+              center: jamaica,
+              zoom: 13,
+              styles:[{"featureType":"landscape","stylers":[{"hue":"#FFBB00"},{"saturation":43.400000000000006},{"lightness":37.599999999999994},{"gamma":1}]},{"featureType":"road.highway","stylers":[{"hue":"#FFC200"},{"saturation":-61.8},{"lightness":45.599999999999994},{"gamma":1}]},{"featureType":"road.arterial","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":51.19999999999999},{"gamma":1}]},{"featureType":"road.local","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":52},{"gamma":1}]},{"featureType":"water","stylers":[{"hue":"#0078FF"},{"saturation":-13.200000000000003},{"lightness":2.4000000000000057},{"gamma":1}]},{"featureType":"poi","stylers":[{"hue":"#00FF6A"},{"saturation":-1.0989010989011234},{"lightness":11.200000000000017},{"gamma":1}]}],
+    
+            });
+          }
+      
+
+        google.maps.event.addDomListener(window, 'load', initMap);  
+        /* <!--_______________________________GOOGLE MAPS________________________________________ --> */
+        
+        
+        
+        
+        
+        
+        
+        
+        
+/*<!----------------------------------AUTOCOMPLETE SETUP---------------------------------->*/
+        autocomplete = new google.maps.places.Autocomplete(
+         (document.getElementById('location')),
+            {types: ['geocode']});
+        }
+
+     
+
+      // Bias the autocomplete object to the user's geographical location,
+      // as supplied by the browser's 'navigator.geolocation' object.
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+      }
+      /*
+<!----------------------------------AUTOCOMPLETE SETUP---------------------------------->*/
+    </script>
+<!--_______________________________GOOGLE MAPS________________________________________ -->
     </head>
 <body>
     
@@ -70,10 +130,9 @@
         </div>
         
         <div class="input-field col s12 l6">
-            <select>
+            <select id="accomodation">
               <option value="1">Single</option>
               <option value="2">Shared</option>
-             
             </select>
             <label>Accomodation</label>
         </div>
@@ -299,7 +358,7 @@ footer.page-footer {
 <script type="text/javascript" src="bower_components/Materialize/dist/js/materialize.js"></script>
 <!--<script type="text/javascript"  src="assets/js/jquery.backstretch.js"></script>-->
 <script type="text/javascript" src="ionRangeSlider/js/ion.rangeSlider.js"></script>
- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5G9JFJu-6F4zbj3POdmAVGDi2mCQ7coE&libraries=places&callback=initAutocomplete" async defer></script>
+
 <!--_______________________________JAVASCRIPT FILES________________________________________ -->
 
 
@@ -323,8 +382,8 @@ $(".button-collapse").sideNav();
 
 
 /*----------------------ION RANGE SLIDER INITIALIZATION----------------------*/
- $(function () {
-     var from=0,to=20000;
+
+     var from=0,to=0000;
      var saveResult = function (data) {
     from = data.from;
     to = data.to
@@ -350,8 +409,13 @@ $(".button-collapse").sideNav();
             onFinish: saveResult
         });
 
-});
+
 /*----------------------ION RANGE SLIDER INITIALIZATION----------------------*/
+
+
+/*FETCHING DATA FROM FORM AND SLIDER AND SEND TO PHP*/
+
+/*FETCHING DATA FROM FORM AND SLIDER AND SEND TO PHP*/
 
 
 
@@ -368,7 +432,7 @@ $(document).ready(function() {
 <!--_______________________________GOOGLE MAPS________________________________________ -->
 <script type="text/javascript">
 
-    var map;
+   /* var map;
        var jamaica = new google.maps.LatLng(18.0104288,-76.741323);
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -380,46 +444,14 @@ $(document).ready(function() {
       }
       
 
-   google.maps.event.addDomListener(window, 'load', initMap);   
+   google.maps.event.addDomListener(window, 'load', initMap);   */
 </script>
 <!--_______________________________GOOGLE MAPS________________________________________ -->
 
 
 
 <!----------------------------------AUTOCOMPLETE SETUP-------------------------------- -->
- <script>
-     
 
-      var autocomplete;
-      
-
-      function initAutocomplete() {
-        // Create the autocomplete object, restricting the search to geographical location types.
-        autocomplete = new google.maps.places.Autocomplete(
-         (document.getElementById('location')),
-            {types: ['geocode']});
-      }
-
-     
-
-      // Bias the autocomplete object to the user's geographical location,
-      // as supplied by the browser's 'navigator.geolocation' object.
-      function geolocate() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var geolocation = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
-            var circle = new google.maps.Circle({
-              center: geolocation,
-              radius: position.coords.accuracy
-            });
-            autocomplete.setBounds(circle.getBounds());
-          });
-        }
-      }
-    </script>
 <!----------------------------------AUTOCOMPLETE SETUP---------------------------------->
 
 
