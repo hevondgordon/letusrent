@@ -12,18 +12,20 @@
         <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+         <script src="bower_components/jquery/dist/jquery.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5G9JFJu-6F4zbj3POdmAVGDi2mCQ7coE&libraries=places&callback=initAutocomplete" async defer></script>
         <title>Test</title>
         
      
 <script>
-     
-
       var autocomplete;
       function initAutocomplete() {
-          /* <!--_______________________________GOOGLE MAPS________________________________________ -->  */
+          
+/* <!--_______________________________GOOGLE MAPS________________________________________ -->  */
+          var testx=18.0104288,testy=-76.7416509;
           var map;
-          var jamaica = new google.maps.LatLng(18.0104288,-76.741323);
+          var markers = [];
+          var jamaica = new google.maps.LatLng(18.0104288,-76.7416509);
           function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
               center: jamaica,
@@ -31,11 +33,99 @@
               styles:[{"featureType":"landscape","stylers":[{"hue":"#FFBB00"},{"saturation":43.400000000000006},{"lightness":37.599999999999994},{"gamma":1}]},{"featureType":"road.highway","stylers":[{"hue":"#FFC200"},{"saturation":-61.8},{"lightness":45.599999999999994},{"gamma":1}]},{"featureType":"road.arterial","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":51.19999999999999},{"gamma":1}]},{"featureType":"road.local","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":52},{"gamma":1}]},{"featureType":"water","stylers":[{"hue":"#0078FF"},{"saturation":-13.200000000000003},{"lightness":2.4000000000000057},{"gamma":1}]},{"featureType":"poi","stylers":[{"hue":"#00FF6A"},{"saturation":-1.0989010989011234},{"lightness":11.200000000000017},{"gamma":1}]}],
     
             });
-          }
+            
+             map.addListener('click', function(event) {
+            clearAllMarkers();
+            addMarker(event.latLng);
+            
+         });
       
+        for(var x=0;x<10;x++){
+            jamaica = new google.maps.LatLng(testx,testy);
+            addMarker(jamaica);
+            testx+=0.021;
+            testy+=0.030;
+            /*console.log("lat:"+jamaica.lat()+"lang:"+jamaica.lng());*/
+           
+           
+            
+        }
+      
+          }
+       function clearAllMarkers() {
+                for(var i=0; i<markers.length; i++){
+                   markers[i].setMap(null);
+                }
+   
+        }
+      
+        function addMarker(location) {
+          var marker = new google.maps.Marker({
+            position: location,
+            map: map,
+            icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            strokeColor: '#33CCFF',
+            scale: 10
+            }
+          });
+         /*ALLOW MARKER TO POP UP WHEN MODAL IS CLICKED*/
+           marker.addListener('click', function() {
+                $("#modal").html('<div class="modal-content">'+
+                  '<div class="card blue-grey darken-1">'+
+                    '<div class="card-content white-text card-image">'+
+                    '<img class="image-card" src="../images/stretch.png"  style="background-repeat:no-repeat;"></img>'+
+                    '</div>'+
+                    '<div class="card-action cyan row">'+
+                        '<div class="col l10 s10 m10">'+
+                       '<p class="white-text"> <span class="left pad">Price</span> $15,000</p>'+
+                        '<p class="white-text"> <span class="left pad">Accomodation</span> Single</p>'+
+                        '<p class="white-text"> <span class="left pad">Rent type</span> All inclusiive</p>'+
+                        '<p class="white-text"> <i class="material-icons left">call</i> <span>(876) 456-7097</span></p>'+
+                        '</div>'+
+                         '<div class="col l2 s2 m2">'+
+                          '<div  class="col s6 l6 m6 like"><i class="material-icons modallike">favorite</i></div>'+ 
+                        '</div>'+
+                    '</div>'+
+                  '</div>'+
+                  '</div>');
+                $('#modal').openModal({ready:function(){
+                     var count=0;
+                    $('.modallike').on('click',function(){
+                        if (count%2==0){
+                            $( this ).css({ "color":"red","opacity":0.7});
+                             $(this).animate({fontSize:"2.5em"},2000);
+                             count++;
+                             
+                        }
+                        else{
+                            
+                             $(this).css({"color":"white","opacity":1});
+                             $(this).animate({fontSize:"1.8em"},2000);
+                             count++
+                        }
+                       
+                    })
+                }});
+           });
+         
+         markers.push(marker);
+        }
 
         google.maps.event.addDomListener(window, 'load', initMap);  
-        /* <!--_______________________________GOOGLE MAPS________________________________________ --> */
+        
+ /*----------------------------------------------------ADD MARKERS TO MAP HERE---------------------------------------------------------------*/
+        
+         
+        
+        
+        
+        $(document).ready(function(){
+            
+        });
+        
+ /*----------------------------------------------------ADD MARKERS TO MAP HERE---------------------------------------------------------------*/
+/* <!--_______________________________GOOGLE MAPS________________________________________ --> */
         
         
         
@@ -73,10 +163,20 @@
       /*
 <!----------------------------------AUTOCOMPLETE SETUP---------------------------------->*/
     </script>
-<!--_______________________________GOOGLE MAPS________________________________________ -->
+
     </head>
 <body>
-    
+ 
+ 
+
+<!--_________________________________ Modal Structure____________________________________-->
+      <div id="modal" class="modal">
+      </div>
+<!--_________________________________ Modal Structure____________________________________-->
+  
+  
+  
+  
 <!--_______________________________NAVBAR_______________________________________ -->    
 <nav>
     <div class="nav-wrapper">
@@ -157,51 +257,72 @@
 <!--_______________________________CARDS_______________________________________ -->
  <div class="row">
          <div class="col s12 m12 l4">
-          <div class="card blue-grey darken-1">
+          <div class="card row teal darken-1">
+              
             <div class="card-content white-text card-image">
              <img class="image-card" src="../images/stretch.png" style="background-repeat:no-repeat;"></img>
             </div>
-            <div class="card-action cyan">
-           
+            <div class="card-action cyan row">
+                <div class="col l10 s10 m10">
                 <p class="white-text"> <span class="left pad">Price</span> $15,000</p>
                 <p class="white-text"> <span class="left pad">Location</span> Tavern, Papine Jamaica</p>
                 <p class="white-text"> <span class="left pad">Accomodation</span> Single</p>
                 <p class="white-text"> <span class="left pad">Rent type</span> All inclusiive</p>
                 <p class="white-text"> <i class="material-icons left">call</i> <span>(876) 456-7097</span></p>
+                </div>
+                <div class="col l2 s2 m2">
+                       <div  class="col s6 l6 m6 like"><i class="material-icons one ilike">favorite</i></div> 
+                </div>
+               
             </div>
+            
           </div>
         </div>
         
         
         <div class="col s12 m12 l4">
-          <div class="card blue-grey darken-1">
+          <div class="card row teal darken-1">
+              
             <div class="card-content white-text card-image">
-             <img class="image-card" src="../images/stretch.png"  style="background-repeat:no-repeat;"></img>
+             <img class="image-card" src="../images/stretch.png" style="background-repeat:no-repeat;"></img>
             </div>
-            <div class="card-action cyan">
-           
+            <div class="card-action cyan row">
+               <div class="col l10 s10 m10">
                 <p class="white-text"> <span class="left pad">Price</span> $15,000</p>
                 <p class="white-text"> <span class="left pad">Location</span> Tavern, Papine Jamaica</p>
                 <p class="white-text"> <span class="left pad">Accomodation</span> Single</p>
                 <p class="white-text"> <span class="left pad">Rent type</span> All inclusiive</p>
                 <p class="white-text"> <i class="material-icons left">call</i> <span>(876) 456-7097</span></p>
+                </div>
+                <div class="col l2 s2 m2">
+                       <div  class="col s6 l6 m6 like"><i class="material-icons two ilike">favorite</i></div> 
+                </div>
+               
             </div>
+            
           </div>
         </div>
         
-          <div class="col s12 m12 l4">
-          <div class="card blue-grey darken-1">
+         <div class="col s12 m12 l4">
+          <div class="card row teal darken-1">
+              
             <div class="card-content white-text card-image">
-             <img class="image-card" src="../images/stretch.png"  style="background-repeat:no-repeat;"></img>
+             <img class="image-card" src="../images/stretch.png" style="background-repeat:no-repeat;"></img>
             </div>
-            <div class="card-action cyan">
-           
+            <div class="card-action cyan row">
+                <div class="col l10 s10 m10">
                 <p class="white-text"> <span class="left pad">Price</span> $15,000</p>
                 <p class="white-text"> <span class="left pad">Location</span> Tavern, Papine Jamaica</p>
                 <p class="white-text"> <span class="left pad">Accomodation</span> Single</p>
                 <p class="white-text"> <span class="left pad">Rent type</span> All inclusiive</p>
                 <p class="white-text"> <i class="material-icons left">call</i> <span>(876) 456-7097</span></p>
+                </div>
+                <div class="col l2 s2 m2">
+                       <div  class="col s6 l6 m6 like"><i class="material-icons three ilike">favorite</i></div> 
+                </div>
+               
             </div>
+            
           </div>
         </div>
       </div>
@@ -219,7 +340,7 @@
                  <div class="input-field col s12 l12">
                     <input type="email" class="subscribe validate" placeholder="Enter email address" id="subscribe" name="subscribe"/> 
                    <label for="subscribe" class="subscribe-label">Subscribe</label>
-                   <div><button class="btn">Subscribe</button></div>
+                   <div><button class="btn subtn">Subscribe</button></div>
                 </div>
                
               </div>
@@ -250,6 +371,50 @@
 
 <!--_______________________________CSS RULES________________________________________ -->
 <style type="text/css">
+.subtn{
+    background-color:white;
+    color:#33CCFF; 
+}
+
+.like{
+   margin-top:8px;
+    margin-left:2px;
+    color:white;
+   
+}
+.like:hover{
+    cursor:pointer;
+}
+.modal {
+   
+    max-height: 100% !important ; overflow-y: hidden !important ;
+    
+}
+.modal-content{
+    padding: 5px !important;
+}
+/* ----------- Non-Retina Screens ----------- */
+@media screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) 
+  and (-webkit-min-device-pixel-ratio: 1) { 
+      .modal {
+    width: 45% !important;
+    max-height: 100% !important ; overflow-y: hidden !important ;
+}
+}
+
+/* ----------- Retina Screens ----------- */
+@media screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (min-resolution: 192dpi) { 
+      .modal {
+    width: 45% !important;
+}
+}
+
 
 .icon{
     width:40px;
@@ -258,7 +423,7 @@
     /*padding:30px;*/
 }
 .btn{
-    background-color:#33CCFF;   
+    background-color:  
 }
 .bold{
      font-weight:bold;
@@ -335,10 +500,18 @@ font-family: 'Slabo 27px', serif;
 }
 
 .color{
-   
+   background-color:#33CCFF; 
 }
 footer.page-footer {
   background-color:#33CCFF;   
+}
+.subtn{
+    background-color:white;
+    color:#33CCFF; 
+}
+.subtn:hover{
+    background-color:white;
+    color:#33CCFF; 
 }
 </style>
 <!--_______________________________CSS RULES________________________________________ -->
@@ -354,7 +527,7 @@ footer.page-footer {
 
 
 <!--_______________________________JAVASCRIPT FILES________________________________________ -->
-<script src="bower_components/jquery/dist/jquery.js"></script>
+
 <script type="text/javascript" src="bower_components/Materialize/dist/js/materialize.js"></script>
 <!--<script type="text/javascript"  src="assets/js/jquery.backstretch.js"></script>-->
 <script type="text/javascript" src="ionRangeSlider/js/ion.rangeSlider.js"></script>
@@ -383,7 +556,7 @@ $(".button-collapse").sideNav();
 
 /*----------------------ION RANGE SLIDER INITIALIZATION----------------------*/
 
-     var from=0,to=0000;
+     var from=0,to=30000;
      var saveResult = function (data) {
     from = data.from;
     to = data.to
@@ -413,49 +586,66 @@ $(".button-collapse").sideNav();
 /*----------------------ION RANGE SLIDER INITIALIZATION----------------------*/
 
 
-/*FETCHING DATA FROM FORM AND SLIDER AND SEND TO PHP*/
-
-/*FETCHING DATA FROM FORM AND SLIDER AND SEND TO PHP*/
 
 
 
-/*DROPDOWN INITIALIZATION*/
+
+
+/*------------------------DROPDOWN INITIALIZATION------------------------------*/
 
 $(document).ready(function() {
     $('select').material_select();
   });
   
-/*DROPDOWN INITIALIZATION*/
-    
+/*------------------------DROPDOWN INITIALIZATION------------------------------*/
+
+
+
+
+
+
+
+/*-------------------------------MODAL SETUP-----------------------------------*/  
+
+    /*$('.modal-trigger').leanModal({
+      dismissible: true, // Modal can be dismissed by clicking outside of the modal
+      opacity: .5, // Opacity of modal background
+      in_duration: 300, // Transition in duration
+      out_duration: 200, // Transition out duration
+      ready: function() {console.log("ready to open"); }, // Callback for Modal open
+      complete: function() { console.log("closed"); } // Callback for Modal close
+    }
+  );*/
+  /*
+/*-------------------------------MODAL SETUP-----------------------------------*/  
+
+
+
+
+
+/*--------------------------------LIKE BUTTON FUNCTIONALITY-----------------------------------*/
+
+$('.ilike').on('click',function(){
+     var styleProps = $( this ).css(["color"]);
+    if (styleProps["color"]=="rgb(255, 255, 255)"){
+        $( this ).css({ "color":"red","opacity":0.7});
+         $(this).animate({fontSize:"2.5em"},2000);
+    }
+    else{
+        
+         $(this).css({"color":"white","opacity":1});
+         $(this).animate({fontSize:"1.8em"},2000);
+    }
+   
+})
+
+
+
+/*--------------------------------LIKE BUTTON FUNCTIONALITY-----------------------------------*/
+
+
+
 </script>
-
-<!--_______________________________GOOGLE MAPS________________________________________ -->
-<script type="text/javascript">
-
-   /* var map;
-       var jamaica = new google.maps.LatLng(18.0104288,-76.741323);
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: jamaica,
-          zoom: 13,
-          styles:[{"featureType":"landscape","stylers":[{"hue":"#FFBB00"},{"saturation":43.400000000000006},{"lightness":37.599999999999994},{"gamma":1}]},{"featureType":"road.highway","stylers":[{"hue":"#FFC200"},{"saturation":-61.8},{"lightness":45.599999999999994},{"gamma":1}]},{"featureType":"road.arterial","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":51.19999999999999},{"gamma":1}]},{"featureType":"road.local","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":52},{"gamma":1}]},{"featureType":"water","stylers":[{"hue":"#0078FF"},{"saturation":-13.200000000000003},{"lightness":2.4000000000000057},{"gamma":1}]},{"featureType":"poi","stylers":[{"hue":"#00FF6A"},{"saturation":-1.0989010989011234},{"lightness":11.200000000000017},{"gamma":1}]}],
-
-        });
-      }
-      
-
-   google.maps.event.addDomListener(window, 'load', initMap);   */
-</script>
-<!--_______________________________GOOGLE MAPS________________________________________ -->
-
-
-
-<!----------------------------------AUTOCOMPLETE SETUP-------------------------------- -->
-
-<!----------------------------------AUTOCOMPLETE SETUP---------------------------------->
-
-
-
 
 <!--_______________________________JAVASCRIPT FUNCTIONS________________________________________ -->
 

@@ -255,7 +255,7 @@ $(".button-collapse").sideNav();
 <script type="text/javascript">
 
     var map;
-    var markers = [];
+        var markers = [];
        var jamaica = new google.maps.LatLng(18.0104288,-76.741323);
       function initMap() {
           
