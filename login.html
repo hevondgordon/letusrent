@@ -2,194 +2,171 @@
 <html lang="en">
 
     <head>
-
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Login</title>
-
-        <!-- CSS -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
-		<link rel="stylesheet" href="assets/css/form-elements.css">
-        <link rel="stylesheet" href="assets/css/style.css">
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
-        <!-- Favicon and touch icons -->
-        <link rel="shortcut icon" href="../favicon2.ico">
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
-
-    </head>
-
-    <body>
-
-		<!-- Top menu -->
-		<nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="index.php"></a>
-				</div>
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse" id="top-navbar-1">
-					<ul class="nav navbar-nav navbar-right">
-						<li>
-						 
-						<strong>Follow us</strong>
-							<span class="li-text">
-								
-							</span> 
-							<span class="li-social">
-								<a href="#"><i class="fa fa-facebook"></i></a> 
-								<a href="#"><i class="fa fa-twitter"></i></a> 
-								<a href="#"><i class="fa fa-envelope"></i></a> 
-								<a href="#"><i class="fa fa-instagram"></i></a> 
-								
-							</span>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-
-        <!-- Top content -->
-        <div class="top-content">
-        	
-            <div class="inner-bg">
-                <div class="container">
-                    <div class="row">
-                    	
-                    	 
-                        <div class="col-sm-8 col-sm-offset-2 text">
-                            <h1><strong>Campus Flats</strong> Login Form</h1>
-                            
-                        </div>
-                    </div>
-                    <div class="row">
-                    	<div class="col-sm-6 book">
-                    		
-                    	</div>
-                        <div class="col-sm-5 form-box">
-                        	 <div class="alert alert-danger" role="alert" id="error"> Incorrect username or password</div>
-                        	<div class="form-top">
-                        		
-                        		<div class="form-top-left">
-                        			
-                        			<h3>Login to continue</h3>
-                            		<p><a href="register.html">Not a user? click here to register</a></p>
-                        		</div>
-                        		<div class="form-top-right">
-                        			<i class="fa fa-pencil"></i>
-                        		</div>
-                            </div>
-                            <div class="form-bottom">
-			                    <form role="form" action="login.php" method="post" class="registration-form login">
-			                    	
-			                        <div class="form-group">
-			                        	<label class="sr-only" for="form-last-name">Last name</label>
-			                        	<input type="text" name="username" placeholder="username..." class="form-last-name form-control" id="username">
-			                        </div>
-			                        <div class="form-group">
-			                        	<label class="sr-only" for="form-email">Email</label>
-			                        	<input type="password" name="password" placeholder="password..." class="form-email form-control" id="password">
-			                        </div>
-			                        <button type="submit" class="btn" >Login</button>
-			                    </form>
-		                    </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-
-
-        <!-- Javascript -->
-        <script src="assets/js/jquery-1.11.1.min.js"></script>
-        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets/js/jquery.backstretch.js"></script>
-        <script src="assets/js/retina-1.1.0.min.js"></script>
-        <script src="assets/js/scripts.js"></script>
-       
+        <meta name="google-signin-client_id" content="513111321818-bcgl1me6nlt85j187g6cntqg7sn3n8a8.apps.googleusercontent.com">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="bower_components/Materialize/dist/css/materialize.css" type="text/css" />
+        <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700' rel='stylesheet' type='text/css'>
+          <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Wire+One' rel='stylesheet' type='text/css'>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
         
-        <!--[if lt IE 10]>
-            <script src="assets/js/placeholder.js"></script>
-        <![endif]-->
+    </head>
+    <body>
+<!--**************************************GOOGLE LOGIN SETUP HERE***********************************-->
+
+<script type="text/javascript">
+ var loggedin=false;
+  function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail());
+} 
+
+
+
+function onSuccess(googleUser) {
+      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+      loggedin=true;
+      //location.href="https://campus-jermyhewitt.c9users.io/profile.php";
+    }
+
+
+
+    
+function onFailure(error) {
+      console.log(error);
+    }
+
+
+function renderButton() {
+      gapi.signin2.render('goog', {
+        'scope': 'profile email',
+        'width': 290,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'light',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
+    }
+    
+    
+
+</script>
+<!--**************************************GOOGLE LOGIN SETUP HERE***********************************-->
+
+       <div class="row">
+           <div class="col l4">&nbsp</div>
+           
+           <div class="col l4 s12 page">
+               <div><center><span class="error"></span></center></div>
+                 <center><span class="top-text">Sign In</span></center>
+                 
+                <div class="row">
+                    <div class="col l1">&nbsp</div>
+                    <div class="col l10 z-depth-4">
+                          <div class="input-field col s12 l12 m12 padding">
+                             <input placeholder="email@email.com" id="username" type="text"/>
+                              <label for="location">Username</label>
+                          </div>
+                          
+                           <div class="space col l12 s12"></div>
+                           
+                          <div class="input-field col s12 l12 m12 padding">
+                             <input placeholder="password" id="password" type="password"/>
+                              <label for="password">password</label>
+                          </div> 
+                          <div class="space col l12 s12"></div>
+                          <div class="row">
+                              <div class="col l6 s6 m6"><button class="btn" id="login">Login</button></div>
+                              <div class="col l6 s6 m6  test lefty"><button class="btn">Register</button></div>
+                          </div>
+                          <div class="col l12 s11 m12 g-signin2" data-onsuccess="onSignIn" id="goog"></div>
+                   </div>
+                  <div clas="col l1">&nbsp</div>
+                </div>
+                 
+                 
+              
+           </div>
+           
+           <div class=" col l4">&nbsp</div>
+           
+       </div>
+    	
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script type="text/javascript" src="bower_components/Materialize/dist/js/materialize.js"></script>
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
+<style type="text/css">
+#goog{
+    padding:10px;
+    
+}
+.error{
+    color:red;
+    padding:10px;
+    font-size:25px;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+.lefty{
+   margin-left:10px;
+}
+.btn{
+    background-color:#33CCFF;
+    
+}
+.space{
+   height:40px;
+}
+body{
+    background-color:#33CCFF;
+}
+
+.page{
+    margin-top:80px;
+    background-color:white;
+   
+  
+}
+.top-text{
+  
+    font-family: 'Wire One', sans-serif;
+    font-size:50px;
+    height:400px;
+}
+
+</style>  
+
+<script type="text/javascript">
+
+/*CHECK THAT BOTH PASSWORD FIELDS AND USERNAME FIELDS AER NOT EMPTY*/
+function checkfields(){
+    var emp=0;
+        $('input').each(function(){
+            if($(this).val()==""){
+                emp++;
+                 $(".error").html("Username and Password required");
+            }
+            if(emp==0)$(".error").html("");
+        
+         }); 
        
-        <script type="text/javascript">
-        $("div#error").hide();
-      
-	$("form.login").on('submit',function(){
-	  var validator=true;
-	$(this).find('[name]').each(function(index, val){
-		val=$(this).val();
-		if(val==""){
-			validator=false;
-			 $("div#error").html("enter username and password!");
-			 $("div#error").show();
-		}
-	});
-	if(validator==false){
-		return false;
-	}
-	var component=$(this);
-	var url=component.attr('action'),
-	 type=component.attr('method'),
-	data={};
-	
-	component.find('[name]').each(function(index, value)
-	{
-		var component=$(this);
-	 var name=component.attr('name'),
-		value=component.val();
-
-		data[name]=value;
-	
-	});
-
-	$.ajax({
-		url:url,
-		type:type,
-		data:data,
-		success: function(response){
-			if(response==-1)
-			{
-			 $("div#error").html("invalid username or password");
-			 $("div#error").show();	
-			}
-			else{
-				 location.href = "profile"
-	 	
-			}
-			console.log(response);
-	   
-	 		
-		}
-			,
-		error:function(XMLHttpRequest, textStatus, errorThrown)
-		{
-			console.log("there was an error"+XMLHttpRequest+" "+textStatus+" "+errorThrown);
-		}
-	});
-	return false;
-});
+    }
+    
+    
+   $('#login').on('click', function(){
+       console.log("dfgdg");
+       checkfields();
+   });
 </script>
 
-    </body>
+
+
+</body>
 
 </html>

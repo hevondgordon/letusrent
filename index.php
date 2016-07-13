@@ -12,7 +12,8 @@
         <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
-         <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5G9JFJu-6F4zbj3POdmAVGDi2mCQ7coE&libraries=places&callback=initAutocomplete" async defer></script>
         <title>Test</title>
         
@@ -111,7 +112,6 @@
          
          markers.push(marker);
         }
-
         google.maps.event.addDomListener(window, 'load', initMap);  
         
  /*----------------------------------------------------ADD MARKERS TO MAP HERE---------------------------------------------------------------*/
@@ -120,9 +120,7 @@
         
         
         
-        $(document).ready(function(){
-            
-        });
+       
         
  /*----------------------------------------------------ADD MARKERS TO MAP HERE---------------------------------------------------------------*/
 /* <!--_______________________________GOOGLE MAPS________________________________________ --> */
@@ -177,29 +175,9 @@
   
   
   
-<!--_______________________________NAVBAR_______________________________________ -->    
-<nav>
-    <div class="nav-wrapper">
-      <a href="#!" class="brand-logo">Campusflats</a>
-      <a href="#" data-activates="mobile-demo" class="button-collapse" ><i class="material-icons">menu</i></a>
-      	<div class="container">
-      <ul class="right hide-on-med-and-down">
-        <li><a href="sass.html">About</a></li>
-        <li><a href="badges.html">Compare</a></li>
-        <li><a href="collapsible.html">Login</a></li>
-        <li><a href="mobile.html">Register</a></li>
-         <li><a href="mobile.html">About</a></li>
-      </ul>
-        </div>
-      <ul class="side-nav" id="mobile-demo">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">Javascript</a></li>
-        <li><a href="mobile.html">Mobile</a></li>
-      </ul>
-    </div>
-</nav>
-<!--_______________________________NAVBAR_______________________________________ -->
+<?php
+require 'header.php';
+?>
 
 
 <div  id="map"></div>
@@ -304,7 +282,7 @@
         </div>
         
          <div class="col s12 m12 l4">
-          <div class="card row teal darken-1">
+          <div class="card row teal">
               
             <div class="card-content white-text card-image">
              <img class="image-card" src="../images/stretch.png" style="background-repeat:no-repeat;"></img>
@@ -337,7 +315,7 @@
               <div class="col l6 s12  color">
                 <p class="white-text bold" >Subscribe to receive updates when new properties are available!</p> 
                 
-                 <div class="input-field col s12 l12">
+                 <div class="input-field col s12 l12 color">
                     <input type="email" class="subscribe validate" placeholder="Enter email address" id="subscribe" name="subscribe"/> 
                    <label for="subscribe" class="subscribe-label">Subscribe</label>
                    <div><button class="btn subtn">Subscribe</button></div>
@@ -347,7 +325,7 @@
               <div class="col l4 offset-l2 s12  color">
                   <center>
                 
-                    <div class="icon-div">
+                    <div class="icon-div color">
                   <a class="grey-text text-lighten-3" href="#!"><img class="icon" src="../images/facebook.png"></img></a>
                   <span>&nbsp</span><span>&nbsp</span><span>&nbsp</span>
                   <a class="grey-text text-lighten-3" href="#!"><img class="icon" src="../images/twitter.png"></img></a>
@@ -360,7 +338,7 @@
               </div>
             </div>
           </div>
-          <div class="footer-copyright">
+          <div class="footer-copyright color">
             <div class="container color">
             © 2016 Campus Flats. All rights reserved.
             <a class="grey-text text-lighten-4 right" href="#!">Contact</a>
@@ -422,9 +400,11 @@
   
     /*padding:30px;*/
 }
+
 .btn{
-    background-color:  
+    background-color: #33CCFF; 
 }
+
 .bold{
      font-weight:bold;
      font-size:16px;
@@ -513,6 +493,9 @@ footer.page-footer {
     background-color:white;
     color:#33CCFF; 
 }
+footer.page-footer .footer-copyright {
+    background-color:#33CCFF;
+}
 </style>
 <!--_______________________________CSS RULES________________________________________ -->
 
@@ -531,6 +514,7 @@ footer.page-footer {
 <script type="text/javascript" src="bower_components/Materialize/dist/js/materialize.js"></script>
 <!--<script type="text/javascript"  src="assets/js/jquery.backstretch.js"></script>-->
 <script type="text/javascript" src="ionRangeSlider/js/ion.rangeSlider.js"></script>
+
 
 <!--_______________________________JAVASCRIPT FILES________________________________________ -->
 
@@ -630,11 +614,13 @@ $('.ilike').on('click',function(){
     if (styleProps["color"]=="rgb(255, 255, 255)"){
         $( this ).css({ "color":"red","opacity":0.7});
          $(this).animate({fontSize:"2.5em"},2000);
+         Materialize.toast('Property added to likes!', 4000)
     }
     else{
         
          $(this).css({"color":"white","opacity":1});
          $(this).animate({fontSize:"1.8em"},2000);
+         Materialize.toast('Property removed from likes!', 4000)
     }
    
 })
