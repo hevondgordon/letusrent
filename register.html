@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-        <meta name="google-signin-client_id" content="513111321818-bcgl1me6nlt85j187g6cntqg7sn3n8a8.apps.googleusercontent.com">
+        <!--<meta name="google-signin-client_id" content="513111321818-bcgl1me6nlt85j187g6cntqg7sn3n8a8.apps.googleusercontent.com">-->
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -11,8 +11,88 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Wire+One' rel='stylesheet' type='text/css'>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Tangerine' rel='stylesheet' type='text/css'>
         <title>Register-LetUsRent</title>
         
+        
+        
+        
+        
+        
+         <!----------------------------------------GOOGLE SIGN ON BUTTON STUFF------------------------------------>
+        
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script>
+  var googleUser = {};
+  var startApp = function() {
+    gapi.load('auth2', function(){
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      auth2 = gapi.auth2.init({
+        client_id: '513111321818-bcgl1me6nlt85j187g6cntqg7sn3n8a8.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+        // Request scopes in addition to 'profile' and 'email'
+        //scope: 'additional_scope'
+      });
+      attachSignin(document.getElementById('customBtn'));
+    });
+  };
+
+  function attachSignin(element) {
+    console.log(element.id);
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
+          document.getElementById('name').innerText = "Signed in: " +
+              googleUser.getBasicProfile().getName();
+        }, function(error) {
+          alert(JSON.stringify(error, undefined, 2));
+        });
+  }
+  </script>
+  <style type="text/css">
+  #gSignInWrapper{
+      padding:10px;
+  }
+    #customBtn {
+      display: inline-block;
+      background: white;
+      color: #444;
+      width: 100%;
+     
+      
+      white-space: nowrap;
+    }
+    #customBtn:hover {
+      cursor: pointer;
+    }
+    span.label {
+      font-family: serif;
+      font-weight: normal;
+    }
+    span.icon {
+      background: url('images/g-logo.png') transparent 5px 50% no-repeat;
+      display: inline-block;
+      vertical-align: middle;
+      width: 42px;
+      height: 42px;
+    }
+    span.buttonText {
+      display: inline-block;
+      vertical-align: middle;
+      padding-left: 42px;
+      padding-right: 42px;
+      font-size: 14px;
+      font-weight: bold;
+      /* Use the Roboto font that is loaded in the <head> */
+      font-family: 'Roboto', sans-serif;
+    }
+  </style>
+        
+        
+        
+        
+        
+        <!----------------------------------------GOOGLE SIGN ON BUTTON STUFF------------------------------------>
     </head>
     <body>
 <!--**************************************GOOGLE LOGIN SETUP HERE***********************************-->
@@ -59,8 +139,13 @@ function renderButton() {
 
        <div class="row">
            <div class="col l4">&nbsp</div>
+           <div class="col l4 header"><center><a href="index.php">LetUsRent</a></center></div>
+           <div class="col l4 s12 m4">&nbsp</div>
+           <div class="col l12 s12 m12"></div>
+           <div class="col l4">&nbsp</div>
            
            <div class="col l4 s12 page">
+               
                <div><center><span class="error"></span></center></div>
                  <center><span class="top-text">Register</span></center>
                  
@@ -84,12 +169,23 @@ function renderButton() {
                               <label for="password"> repeat password <span class="star">*</span></label>
                           </div>
                            <div class="space col l12 s12"></div>
-                          <div class="row">
-                               <div class="col l6 s6 m6  test lefty"><button class="btn" id="register">Register</button></div>
-                              <div class="col l6 s6 m6 "><a href="login.html" class="btn">Login</a></div>
+                         
+                        <button class="btn col l6 m6 s6" id="register">Register</button>
+                        <!--you may wonder why this isnt a button...thats because all it does is take you to the register page...as links should-->
+                        <a class="btn col l6 m6 s6" id="register" href="login.html">Login</a>
                              
+                         
+                           
+                          <!-----------------------------GOOGLE SIGN IN BUTTON---------------------------->
+                           <div class="col l12 s12 m12" id="gSignInWrapper">
+                               
+                                <div id="customBtn" class="customGPlusSignIn z-depth-4">
+                                  <span class="icon"></span>
+                                  <span class="buttonText">Sign up with Google</span>
+                                </div>
                           </div>
-                          <div class="col l12 s12 m12 g-signin2" data-onsuccess="onSignIn" id="goog"></div>
+                          <div id="name"></div>
+                          <!-----------------------------GOOGLE SIGN IN BUTTON---------------------------->
                    </div>
                   <div clas="col l1">&nbsp</div>
                 </div>
@@ -107,6 +203,16 @@ function renderButton() {
 <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 
 <style type="text/css">
+a{
+    color:white;
+}
+.header{
+    margin-top:20px;
+     font-family: 'Wire One', sans-serif;
+    font-size:60px;
+    color:white !important;
+    font-weight:bold;
+}
 #goog{
     padding:10px;
     
@@ -121,8 +227,8 @@ function renderButton() {
     font-family: 'Open Sans Condensed', sans-serif;
 }
 
-.lefty{
-   margin-left:10px;
+.right{
+   float:right;
 }
 .btn{
     background-color:#33CCFF;
@@ -150,7 +256,7 @@ body{
 
 </style>  
 
-
+<script>startApp();</script>
 <script type="text/javascript">
 function checkfields(){
     var emp=0;

@@ -614,13 +614,13 @@ $('.ilike').on('click',function(){
     if (styleProps["color"]=="rgb(255, 255, 255)"){
         $( this ).css({ "color":"red","opacity":0.7});
          $(this).animate({fontSize:"2.5em"},2000);
-         Materialize.toast('Property added to likes!', 4000)
+         Materialize.toast('Property added to favourites!', 4000)
     }
     else{
         
          $(this).css({"color":"white","opacity":1});
          $(this).animate({fontSize:"1.8em"},2000);
-         Materialize.toast('Property removed from likes!', 4000)
+         Materialize.toast('Property removed from favourites!', 4000)
     }
    
 })

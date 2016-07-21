@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-        <meta name="google-signin-client_id" content="513111321818-bcgl1me6nlt85j187g6cntqg7sn3n8a8.apps.googleusercontent.com">
+       <!-- <meta name="google-signin-client_id" content="513111321818-bcgl1me6nlt85j187g6cntqg7sn3n8a8.apps.googleusercontent.com">-->
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -11,6 +11,83 @@
           <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Wire+One' rel='stylesheet' type='text/css'>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+        
+        
+        <!----------------------------------------GOOGLE SIGN ON BUTTON STUFF------------------------------------>
+        
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script>
+  var googleUser = {};
+  var startApp = function() {
+    gapi.load('auth2', function(){
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      auth2 = gapi.auth2.init({
+        client_id: '513111321818-bcgl1me6nlt85j187g6cntqg7sn3n8a8.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+        // Request scopes in addition to 'profile' and 'email'
+        //scope: 'additional_scope'
+      });
+      attachSignin(document.getElementById('customBtn'));
+    });
+  };
+
+  function attachSignin(element) {
+    console.log(element.id);
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
+          document.getElementById('name').innerText = "Signed in: " +
+              googleUser.getBasicProfile().getName();
+        }, function(error) {
+          alert(JSON.stringify(error, undefined, 2));
+        });
+  }
+  </script>
+  <style type="text/css">
+  #gSignInWrapper{
+      padding:10px;
+  }
+    #customBtn {
+      display: inline-block;
+      background: white;
+      color: #444;
+      width: 100%;
+     
+      
+      white-space: nowrap;
+    }
+    #customBtn:hover {
+      cursor: pointer;
+    }
+    span.label {
+      font-family: serif;
+      font-weight: normal;
+    }
+    span.icon {
+      background: url('images/g-logo.png') transparent 5px 50% no-repeat;
+      display: inline-block;
+      vertical-align: middle;
+      width: 42px;
+      height: 42px;
+    }
+    span.buttonText {
+      display: inline-block;
+      vertical-align: middle;
+      padding-left: 42px;
+      padding-right: 42px;
+      font-size: 14px;
+      font-weight: bold;
+      /* Use the Roboto font that is loaded in the <head> */
+      font-family: 'Roboto', sans-serif;
+    }
+  </style>
+        
+        
+        
+        
+        
+        <!----------------------------------------GOOGLE SIGN ON BUTTON STUFF------------------------------------>
+        
         
     </head>
     <body>
@@ -42,17 +119,17 @@ function onFailure(error) {
     }
 
 
-function renderButton() {
+/*function renderButton() {
       gapi.signin2.render('goog', {
         'scope': 'profile email',
-        'width': 290,
+        'width':335,
         'height': 50,
         'longtitle': true,
         'theme': 'light',
         'onsuccess': onSuccess,
         'onfailure': onFailure
       });
-    }
+    }*/
     
     
 
@@ -81,11 +158,23 @@ function renderButton() {
                               <label for="password">password</label>
                           </div> 
                           <div class="space col l12 s12"></div>
-                          <div class="row">
-                              <div class="col l6 s6 m6"><button class="btn" id="login">Login</button></div>
-                              <div class="col l6 s6 m6  test lefty"><button class="btn">Register</button></div>
+                          
+                          <button class="btn col l6 m6 s6" id="login">Login</button>
+                          <a class="btn col l6 m6 s6" id="register" href="register.html">Register</a>
+                          
+                          
+                          <!-----------------------------GOOGLE SIGN IN BUTTON---------------------------->
+                           <div  class="col l12 s12 m12" id="gSignInWrapper">
+                               
+                                <div id="customBtn" class="customGPlusSignIn z-depth-4">
+                                  <span class="icon"></span>
+                                  <span class="buttonText">Sign in with Google</span>
+                                </div>
                           </div>
-                          <div class="col l12 s11 m12 g-signin2" data-onsuccess="onSignIn" id="goog"></div>
+                          <div id="name"></div>
+                          <!-----------------------------GOOGLE SIGN IN BUTTON---------------------------->
+                          
+                          
                    </div>
                   <div clas="col l1">&nbsp</div>
                 </div>
@@ -103,10 +192,7 @@ function renderButton() {
 <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 
 <style type="text/css">
-#goog{
-    padding:10px;
-    
-}
+
 .error{
     color:red;
     padding:10px;
@@ -141,7 +227,7 @@ body{
 }
 
 </style>  
-
+<script>startApp();</script>
 <script type="text/javascript">
 
 /*CHECK THAT BOTH PASSWORD FIELDS AND USERNAME FIELDS AER NOT EMPTY*/

@@ -20,7 +20,7 @@
         <title>Profile</title>
   <!--_______________________________GOOGLE MAPS________________________________________ -->
 <script type="text/javascript">
-       var autocomplete;
+       var autocomplete,lat,lng;
       function initAutocomplete() {
           
 /* <!--_______________________________GOOGLE MAPS________________________________________ -->  */
@@ -53,6 +53,8 @@
         }
       
         function addMarker(location) {
+            lat=location.lat();
+            lng=location.lng();
           var marker = new google.maps.Marker({
             position: location,
             map: map,
@@ -116,13 +118,13 @@ function capture(){
     container.type=$("#type").val();
     container.pref=$('#gender').val();
     container.lat=lat;
-    container.long=long
+    container.long=lng
     console.log(container);
     //return false;
    
 }
 
-$("#finish").on('click',capture);
+
 /*-----------------------------------------------CAPTURE HOME DATA*--------------------------------------------------*/
 
     
@@ -236,7 +238,7 @@ require 'header.php';
  
 <!--_____________________________________JAVASCRIPT FILES___________________________________________-->
 
-
+<script type="text/javascript" src="bower_components/formatter/dist/jquery.formatter.js"></script>
 
 <!--_____________________________________JAVASCRIPT FILES___________________________________________-->
 
@@ -331,7 +333,32 @@ $(".button-collapse").sideNav();
   });
 /*++++++++++++++++++++++++++++++++++++++++INITIALIZING SIDE NAVIGATION++++++++++++++++++++++++++++++++++++++++++++++*/
 
+$("#finish").on('click',capture);
 
+
+
+/*+++++++++++++++++++++++++++++++++++++++++FORMATTER FOR TELEPHONE NUMBER++++++++++++++++++++++++++++++++++++++++++++*/
+$('#telephone').formatter({
+  'pattern': '({{999}}) {{999}}-{{9999}}',
+  'persistent': true
+});
+/*+++++++++++++++++++++++++++++++++++++++++FORMATTER FOR TELEPHONE NUMBER++++++++++++++++++++++++++++++++++++++++++++*/
+
+
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++INPUT VALIDATION+++++++++++++++++++++++++++++++++++++++++++++++++*/
+function validation(){
+    
+    $('input').each(function(){
+    if(this.val()==""){
+        
+    }
+});
+
+}
+
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++INPUT VALIDATION+++++++++++++++++++++++++++++++++++++++++++++++++*/
 </script>
 
 <!--------------------------------------------------JAVASCRIPT FUNCTIONS AND INITIALIZATIONS----------------------------------->
