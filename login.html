@@ -36,8 +36,9 @@
     console.log(element.id);
     auth2.attachClickHandler(element, {},
         function(googleUser) {
-          document.getElementById('name').innerText = "Signed in: " +
-              googleUser.getBasicProfile().getName();
+          /*document.getElementById('name').innerText = "Signed in: " +
+              googleUser.getBasicProfile().getName();*/
+              console.log(googleUser.getBasicProfile())
         }, function(error) {
           alert(JSON.stringify(error, undefined, 2));
         });
@@ -137,7 +138,11 @@ function onFailure(error) {
 <!--**************************************GOOGLE LOGIN SETUP HERE***********************************-->
 
        <div class="row">
-           <div class="col l4">&nbsp</div>
+            <div class="col l4">&nbsp</div>
+           <div class="col l4 header"><center><a href="index.php">LetUsRent</a></center></div>
+           <div class="col l4 s12 m4">&nbsp</div>
+           <div class="col l12 s12 m12"></div>
+          <div class="col l4">&nbsp</div>
            
            <div class="col l4 s12 page">
                <div><center><span class="error"></span></center></div>
@@ -171,7 +176,7 @@ function onFailure(error) {
                                   <span class="buttonText">Sign in with Google</span>
                                 </div>
                           </div>
-                          <div id="name"></div>
+                         
                           <!-----------------------------GOOGLE SIGN IN BUTTON---------------------------->
                           
                           
@@ -192,6 +197,9 @@ function onFailure(error) {
 <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 
 <style type="text/css">
+a{
+    color:white;
+}
 
 .error{
     color:red;
@@ -224,6 +232,14 @@ body{
     font-family: 'Wire One', sans-serif;
     font-size:50px;
     height:400px;
+}
+
+.header{
+    margin-top:20px;
+     font-family: 'Wire One', sans-serif;
+    font-size:60px;
+    color:white !important;
+    font-weight:bold;
 }
 
 </style>  
