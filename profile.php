@@ -134,11 +134,22 @@ function capture(){
  <body>
 
 
+<!------------------------------------------Dropdown Structure-------------------------------------------->
+<ul id="dropdown1" class="dropdown-content">
+
+ 
+  <li><a href="#!">Logout</a></li>
+</ul>
+ 
+<!------------------------------------------Dropdown Structure-------------------------------------------->
 
 <!--_______________________________NAVBAR_______________________________________ -->    
 <nav>
     <div class="nav-wrapper">
       <a href="#!" class="brand-logo center">Campusflats</a>
+      <ul class="hide-on-med-and-down left">
+           <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons right">arrow_drop_down</i></a></li>
+       </ul>
       <a href="#" data-activates="mobile-demo" class="button-collapse" ><i class="material-icons">menu</i></a>
       
       <ul class="right hide-on-med-and-down">

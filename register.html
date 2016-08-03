@@ -39,11 +39,7 @@
   };
 
   function attachSignin(element) {
-    console.log(element.id);
     auth2.attachClickHandler(element, {},
-    
-    
-    
         function(googleUser) {
          var user= googleUser.getBasicProfile();
          var data={};
@@ -52,7 +48,7 @@
          data.email=user.getEmail();
          
          $.ajax({
-            url:"addToDb.php",
+            url:"googleUser.php",
             type:"POST",
             data:data,
             success:function(response){
@@ -129,27 +125,40 @@
                 <div class="row">
                     <div class="col l1">&nbsp</div>
                     <div class="col l10 z-depth-4">
+                        
+                        <div class="input-field col s12 l12 m12 padding">
+                             <input placeholder="First Name" id="fname" name="fname" type="text"/>
+                              <label for="location">First Name  <span class="star">*</span></label>
+                          </div>
+                           <div class="space col l12 s12"></div>
+                          
                           <div class="input-field col s12 l12 m12 padding">
-                             <input placeholder="email@email.com" id="location" type="text"/>
+                             <input placeholder="Last Name" id="lname" name="lname" type="text"/>
+                              <label for="location">Last Name  <span class="star">*</span></label>
+                          </div>
+                         <div class="space col l12 s12"></div>
+                        
+                          <div class="input-field col s12 l12 m12 padding">
+                             <input placeholder="email@email.com" id="username" name="username" type="text"/>
                               <label for="location">Username  <span class="star">*</span></label>
                           </div>
                           
                            <div class="space col l12 s12"></div>
                            
                           <div class="input-field col s12 l12 m12 padding">
-                             <input placeholder="password" id="password" type="password"/>
+                             <input placeholder="password" id="password" name="password" type="password"/>
                               <label for="password">password  <span class="star">*</span></label>
                           </div> 
                           <div class="space col l12 s12"></div>
                           <div class="input-field col s12 l12 m12 padding">
-                             <input placeholder="password" id="repeatpassword" type="password"/>
+                             <input placeholder="password" id="repeatpassword" name="rpassword" type="password"/>
                               <label for="password"> repeat password <span class="star">*</span></label>
                           </div>
                            <div class="space col l12 s12"></div>
                          
                         <button class="btn col l6 m6 s6" id="register">Register</button>
                         <!--you may wonder why this isnt a button...thats because all it does is take you to the register page...as links should-->
-                        <a class="btn col l6 m6 s6" id="register" href="login.html">Login</a>
+                        <a class="btn col l6 m6 s6" id="login" href="login.html">Login</a>
                              
                          
                            
@@ -200,7 +209,7 @@ a{
 .error{
     color:red;
     padding:10px;
-    font-size:25px;
+    font-size:24px;
     font-family: 'Open Sans Condensed', sans-serif;
 }
 
@@ -235,23 +244,71 @@ body{
 
 <script>startApp();</script>
 <script type="text/javascript">
-function checkfields(){
+
+
+
+/**************************************AUTHENTICATION**************************************/
+$("#register").on('click',function(){
+    
+/*-----------------------------------CHECK FOR EMPTY FIELDS-------------------------------*/
     var emp=0;
+    var data={};
+    
     $('input').each(function(){
         if($(this).val()==""){
             emp++;
+            $('html, body').animate({ scrollTop: 0 }, 'fast');
              $(".error").html("all fields are required");
+             return
+            
         }
         if(emp==0)$(".error").html("");
-        
-        
     }); 
-}
-$("#register").on('click',function(){
-    checkfields();
+/*-----------------------------------CHECK FOR EMPTY FIELDS-------------------------------*/
+
+
+/*###########################################################################################*/   
+   
+   
+/*-------------------------------------GET DATA FROM FIELDS-------------------------------------*/
+     $('input').each(function(index,value){
+         var name=$(this).attr("name");
+         
+         data[name]=$(this).val();
+     });
+/*-------------------------------------GET DATA FROM FIELDS-------------------------------------*/
+  
+   
+   
+/*------------------------------------CHECK IF PASSWORDS MATCH-------------------------------*/
+
+    if(data.password!=data.rpassword && emp==0)
+    {
+         $('html, body').animate({ scrollTop: 0 }, 'fast');
+         $(".error").html("passwords do not match");
+         return
+    }
+
+/*------------------------------------CHECK IF PASSWORDS MATCH-------------------------------*/
+
+
+   
+ /*----------------------------------------SEND DATA----------------------------------------*/
+ $.ajax({
+     url:'register.php',
+     type:'post',
+     data:data,
+     success:function(response){
+         console.log(typeof response);
+         if(response=='1')location.href="login.html";
+     }
+ })
+ /*----------------------------------------SEND DATA----------------------------------------*/
     
-    
-})
+});
+
+/**************************************AUTHENTICATION**************************************/
+
    
 </script>
 

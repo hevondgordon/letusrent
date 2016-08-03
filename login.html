@@ -152,14 +152,14 @@ function onFailure(error) {
                     <div class="col l1">&nbsp</div>
                     <div class="col l10 z-depth-4">
                           <div class="input-field col s12 l12 m12 padding">
-                             <input placeholder="email@email.com" id="username" type="text"/>
+                             <input placeholder="email@email.com" id="username" type="text" name="username"/>
                               <label for="location">Username</label>
                           </div>
                           
                            <div class="space col l12 s12"></div>
                            
                           <div class="input-field col s12 l12 m12 padding">
-                             <input placeholder="password" id="password" type="password"/>
+                             <input placeholder="password" id="password" type="password" name="password"/>
                               <label for="password">password</label>
                           </div> 
                           <div class="space col l12 s12"></div>
@@ -204,7 +204,7 @@ a{
 .error{
     color:red;
     padding:10px;
-    font-size:25px;
+    font-size:24px;
     font-family: 'Open Sans Condensed', sans-serif;
 }
 .lefty{
@@ -245,16 +245,24 @@ body{
 </style>  
 <script>startApp();</script>
 <script type="text/javascript">
+var data={};
 
-/*CHECK THAT BOTH PASSWORD FIELDS AND USERNAME FIELDS AER NOT EMPTY*/
+/*CHECK THAT BOTH PASSWORD FIELDS AND USERNAME FIELDS ARE NOT EMPTY*/
 function checkfields(){
     var emp=0;
         $('input').each(function(){
             if($(this).val()==""){
                 emp++;
+                 $('html, body').animate({ scrollTop: 0 }, 'fast');
                  $(".error").html("Username and Password required");
+                 return;
             }
-            if(emp==0)$(".error").html("");
+            if(emp==0){
+                $(".error").html("");
+                var name=$(this).attr('name');
+                data[name]=$(this).val();
+            }
+            
         
          }); 
        
@@ -262,8 +270,22 @@ function checkfields(){
     
     
    $('#login').on('click', function(){
-       console.log("dfgdg");
        checkfields();
+      
+      $.ajax({
+           data:data,
+           type:'post',
+           url:'login.php',
+           success:function(response){
+               console.log(response);
+               if(response=='1'){
+                   location.href="profile.php";
+                   
+               }
+               
+           }
+           
+       });
    });
 </script>
 

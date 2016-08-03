@@ -9,11 +9,13 @@ $uname=$_POST['email'];
 $sql="INSERT INTO `googleuser` (`fname`,`lname`,`username`) VALUES ('$fname', '$lname', '$uname')";
 
 
+setup();
 
-if ($conn->query($sql) === TRUE) {
-    echo "1";
-} else {
-    echo "0";
+if(insert($sql)){
+    echo 1;
+}
+else{
+    echo 0;
 }
 
 $conn->close();
