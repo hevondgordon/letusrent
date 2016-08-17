@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 
 
 ?>
@@ -14,8 +14,14 @@
         <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Wire+One' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="bower_components/dropify/dist/css/dropify.css" type="text/css" />
+        
+      
         <script src="bower_components/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="bower_components/Materialize/dist/js/materialize.js"></script>
+          <script type="text/javascript" src="bower_components/dropify/dist/js/dropify.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5G9JFJu-6F4zbj3POdmAVGDi2mCQ7coE&libraries=places&callback=initAutocomplete" async defer></script>
         <title>Profile</title>
   <!--_______________________________GOOGLE MAPS________________________________________ -->
@@ -109,9 +115,23 @@
 <!----------------------------------AUTOCOMPLETE SETUP---------------------------------->*/
 /*-----------------------------------------------CAPTURE HOME DATA*--------------------------------------------------*/
 function capture(){
-    
+      $('#upload').openModal();
     var container={};
-    container.price=$("#price").val();
+    $('input').each(function(index,val){
+        var name=$(this).attr('name');
+        
+        if($(this).val()==""){
+            
+            $('.error').html('<center>All fields are required!</center>');
+            console.log($(this).val());
+            return;
+        }
+        else{
+            $('.error').html('');
+        }
+    });
+    
+    container.price=parseInt($("#price").val()).toLocaleString();
     container.locationof=$("#location").val();
     container.telephone=$("#telephone").val();
     container.accomodation=$("#accomodation").val();
@@ -119,7 +139,8 @@ function capture(){
     container.pref=$('#gender').val();
     container.lat=lat;
     container.long=lng
-    console.log(container);
+    $('#upload').openModal();
+   
     //return false;
    
 }
@@ -133,24 +154,34 @@ function capture(){
  </head>
  <body>
 
+<!--L-----------------------------------------------------------------------------MODAL----------------------------------------------------------------------------->
+<div id="upload" class="modal">
+    <div class="modal-content">
+          <input type="file" class="dropify" data-height="200" name="file"/>
+          <div class="modal-footer">
+              <span id="done" class=" modal-action modal-close waves-effect waves-teal btn-flat">Done</span>
+         </div>
+    </div>
+   
+  </div>
+<!--L-----------------------------------------------------------------------------MODAL----------------------------------------------------------------------------->
 
-<!------------------------------------------Dropdown Structure-------------------------------------------->
-<ul id="dropdown1" class="dropdown-content">
 
- 
-  <li><a href="#!">Logout</a></li>
-</ul>
- 
-<!------------------------------------------Dropdown Structure-------------------------------------------->
+
+
+
 
 <!--_______________________________NAVBAR_______________________________________ -->    
 <nav>
     <div class="nav-wrapper">
-      <a href="#!" class="brand-logo center">Campusflats</a>
+      <a href="#!" class="brand-logo center">LetUsRent</a>
       <ul class="hide-on-med-and-down left">
-           <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons right">arrow_drop_down</i></a></li>
+          
+               <span class="">&nbsp&nbsp&nbsp Hello <?php echo ucwords($_SESSION['fname']);?></span>
+         
+          
        </ul>
-      <a href="#" data-activates="mobile-demo" class="button-collapse" ><i class="material-icons">menu</i></a>
+     
       
       <ul class="right hide-on-med-and-down">
         <li><a href="sass.html">About</a></li>
@@ -192,21 +223,22 @@ function capture(){
            
            
            <p><center><strong><span class="map-label larger-text">Enter your <span class="color">home</span> details</span></strong></center></p>
+           <p class="error"></p>
    
-      <div class="input-field col s12">
-              <input id="location" type="text" class="validate">
+          <div class="input-field col s12">
+              <input id="location" type="text" class="validate" name="location">
               <label for="location">Location</label>
             </div>
             
             
             <div class="input-field col s12 l6">
-              <input id="telephone" type="text" class="validate">
+              <input id="telephone" type="text" class="validate" name="telephone">
               <label for="telephone">Telephone</label>
             </div>
             
             
              <div class="input-field col s12 l6">
-              <input id="price" type="text" class="validate">
+              <input id="price" type="text" class="validate" name="price">
               <label for="price">Price</label>
             </div>
            
@@ -281,6 +313,20 @@ function capture(){
 
 <!------------------------------------------------------------CSS RULES------------------------------------------------------->
 <style type="text/css">
+.cam{
+    font-size:50px;
+}
+.absolute-center{
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+.error{
+    color:red;
+    padding:10px;
+    font-size:24px;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
 .btn{
     border-radius:0px;
     background-color:#33CCFF;
@@ -329,6 +375,15 @@ function capture(){
 .larger-text{
     font-size:20px;
 }
+
+.header{
+    margin-top:20px;
+     font-family: 'Wire One', sans-serif;
+    font-size:60px;
+    color:white !important;
+    font-weight:bold;
+}
+
 </style>
 
 <!------------------------------------------------------------CSS RULES------------------------------------------------------->
@@ -376,18 +431,15 @@ $('#telephone').formatter({
 
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++INPUT VALIDATION+++++++++++++++++++++++++++++++++++++++++++++++++*/
-function validation(){
-    
-    $('input').each(function(){
-    if(this.val()==""){
-        
-    }
-});
-
-}
+$('.dropify').dropify();
 
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++INPUT VALIDATION+++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
+$("#done").on('click',function(){
+   console.log($('.dropify').val()); 
+});
 </script>
 
 <!--------------------------------------------------JAVASCRIPT FUNCTIONS AND INITIALIZATIONS----------------------------------->

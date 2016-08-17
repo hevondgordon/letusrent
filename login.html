@@ -36,9 +36,17 @@
     console.log(element.id);
     auth2.attachClickHandler(element, {},
         function(googleUser) {
-          /*document.getElementById('name').innerText = "Signed in: " +
-              googleUser.getBasicProfile().getName();*/
-              console.log(googleUser.getBasicProfile())
+          $.ajax({
+              url:'googleUser.php',
+              type:'post',
+              data:{'username':googleUser.getBasicProfile().getEmail(),'action':'login','fname':googleUser.getBasicProfile().getName().split(" ")[0]},
+              success:function(response){
+                  
+                  if(response=="1"){
+                     location.href="profile.php";
+                  }
+              }
+          })
         }, function(error) {
           alert(JSON.stringify(error, undefined, 2));
         });
@@ -271,7 +279,8 @@ function checkfields(){
     
    $('#login').on('click', function(){
        checkfields();
-      
+       data.fname=""
+      $('#coverDiv').show();
       $.ajax({
            data:data,
            type:'post',
@@ -281,6 +290,9 @@ function checkfields(){
                if(response=='1'){
                    location.href="profile.php";
                    
+               }
+               else{
+                   $(".error").html("Incorrect Username/Password combination");
                }
                
            }

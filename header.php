@@ -7,8 +7,8 @@
       <ul class="right hide-on-med-and-down">
         <li><a href="sass.html">About</a></li>
         <li><a href="badges.html">Compare</a></li>
-        <li><a href="collapsible.html">Login</a></li>
-        <li><a href="mobile.html">Register</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register,html">Register</a></li>
          <li><a href="mobile.html">About</a></li>
       </ul>
         </div>

@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require 'connect.php';
 setup();
 
@@ -16,6 +16,8 @@ $sql="SELECT * FROM `landlord` WHERE username='$username'";
 
 if(loginQuery($sql,$password=mysqli_real_escape_string($conn,$_POST['password']))){
     echo 1;
+   $result=$conn->query($sql);
+   $data=$result->fetch_assoc();
 }
 else{
     echo 0;

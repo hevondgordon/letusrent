@@ -46,6 +46,7 @@
          data.fname=user.getName().split(" ")[0];
          data.lname=user.getName().split(" ")[1];
          data.email=user.getEmail();
+         data.action="register";
          
          $.ajax({
             url:"googleUser.php",
@@ -53,6 +54,14 @@
             data:data,
             success:function(response){
                 console.log(response);
+               if(response==1){
+                   $('.overlay').show();
+                  location.href="profile.php";
+                  console.log(' ');
+               }
+               else{
+                   $(".error").html("Account already exists, Click login then sign in with Google");/*PRINT ERROR MESSAGE HERE*/
+               }
             }
          })
          
@@ -108,7 +117,20 @@
         <!----------------------------------------GOOGLE SIGN ON BUTTON STUFF------------------------------------>
     </head>
     <body>
-
+        
+    <div class="overlay">
+        <div class="preloader-wrapper big active absolute-center">
+            <div class="spinner-layer spinner-blue-only">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+         </div>
+    </div>
 
        <div class="row">
            <div class="col l4">&nbsp</div>
@@ -189,6 +211,22 @@
 <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 
 <style type="text/css">
+.absolute-center{
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+.overlay{
+    visibility:hidden;
+    opacity:0.8;
+    background-color:#ccc;
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0px;
+    left:0px;
+    z-index:1000;
+}
 a{
     color:white;
 }
@@ -291,7 +329,7 @@ $("#register").on('click',function(){
 
 /*------------------------------------CHECK IF PASSWORDS MATCH-------------------------------*/
 
-
+    $('.overlay').show();
    
  /*----------------------------------------SEND DATA----------------------------------------*/
  $.ajax({
