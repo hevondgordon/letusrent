@@ -113,40 +113,7 @@ session_start();
       }
       /*
 <!----------------------------------AUTOCOMPLETE SETUP---------------------------------->*/
-/*-----------------------------------------------CAPTURE HOME DATA*--------------------------------------------------*/
-function capture(){
-      $('#upload').openModal();
-    var container={};
-    $('input').each(function(index,val){
-        var name=$(this).attr('name');
-        
-        if($(this).val()==""){
-            
-            $('.error').html('<center>All fields are required!</center>');
-            console.log($(this).val());
-            return;
-        }
-        else{
-            $('.error').html('');
-        }
-    });
-    
-    container.price=parseInt($("#price").val()).toLocaleString();
-    container.locationof=$("#location").val();
-    container.telephone=$("#telephone").val();
-    container.accomodation=$("#accomodation").val();
-    container.type=$("#type").val();
-    container.pref=$('#gender').val();
-    container.lat=lat;
-    container.long=lng
-    $('#upload').openModal();
-   
-    //return false;
-   
-}
 
-
-/*-----------------------------------------------CAPTURE HOME DATA*--------------------------------------------------*/
 
     
 </script>
@@ -157,10 +124,15 @@ function capture(){
 <!--L-----------------------------------------------------------------------------MODAL----------------------------------------------------------------------------->
 <div id="upload" class="modal">
     <div class="modal-content">
-          <input type="file" class="dropify" data-height="200" name="file"/>
-          <div class="modal-footer">
-              <span id="done" class=" modal-action modal-close waves-effect waves-teal btn-flat">Done</span>
+        <form  action="" method="post" class="doneForm" enctype="multipart/form-data">
+            <input type="file" class="dropify" data-height="200" name="file" id="fileSelect"/>
+             <div class="modal-footer">
+              <input type="submit" value="done" id="done" class=" modal-action modal-close waves-effect waves-teal btn-flat"/>
          </div>
+           
+        </form>
+        
+         
     </div>
    
   </div>
@@ -174,7 +146,7 @@ function capture(){
 <!--_______________________________NAVBAR_______________________________________ -->    
 <nav>
     <div class="nav-wrapper">
-      <a href="#!" class="brand-logo center">LetUsRent</a>
+      <a href="https://campus-jermyhewitt.c9users.io/" class="brand-logo center header ">LetUsRent</a>
       <ul class="hide-on-med-and-down left">
           
                <span class="">&nbsp&nbsp&nbsp Hello <?php echo ucwords($_SESSION['fname']);?></span>
@@ -224,26 +196,28 @@ function capture(){
            
            <p><center><strong><span class="map-label larger-text">Enter your <span class="color">home</span> details</span></strong></center></p>
            <p class="error"></p>
-   
+  
+    
+  
           <div class="input-field col s12">
-              <input id="location" type="text" class="validate" name="location">
+              <input id="location" type="text" class="validate greyed" name="location">
               <label for="location">Location</label>
             </div>
             
             
             <div class="input-field col s12 l6">
-              <input id="telephone" type="text" class="validate" name="telephone">
+              <input id="telephone" type="text" class="validate greyed" name="telephone">
               <label for="telephone">Telephone</label>
             </div>
             
             
              <div class="input-field col s12 l6">
-              <input id="price" type="text" class="validate" name="price">
+              <input id="price" type="text" class="validate greyed" name="price" data-a-sign="$" data-a-dec=".">
               <label for="price">Price</label>
             </div>
-           
+     
             <div class="input-field col l6 s12">
-                <select id="accomodation">
+                <select id="accomodation" >
                   <option value="" disabled selected>Select Accomodation</option>
                   <option value="Single">Single</option>
                   <option value="Shared">Shared</option>
@@ -291,7 +265,53 @@ function capture(){
 <!--__________________________________________TABS_______________________________________________________-->
  
  
+ <!-----------------------------------------OVERLAY----------------------------------------->
  
+         <div class="overlay">
+             
+             <div class="preloader-wrapper big active center">
+                  <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                      <div class="circle"></div>
+                    </div><div class="gap-patch">
+                      <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                      <div class="circle"></div>
+                    </div>
+                  </div>
+            
+                  <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                      <div class="circle"></div>
+                    </div><div class="gap-patch">
+                      <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                      <div class="circle"></div>
+                    </div>
+                  </div>
+            
+                  <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                      <div class="circle"></div>
+                    </div><div class="gap-patch">
+                      <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                      <div class="circle"></div>
+                    </div>
+                  </div>
+            
+                  <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                      <div class="circle"></div>
+                    </div><div class="gap-patch">
+                      <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                      <div class="circle"></div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+<!-----------------------------------------OVERLAY----------------------------------------->
  
  
  
@@ -300,8 +320,9 @@ function capture(){
 <!--_____________________________________JAVASCRIPT FILES___________________________________________-->
 
 <script type="text/javascript" src="bower_components/formatter/dist/jquery.formatter.js"></script>
+<script type="text/javascript" src="bower_components/autoNumeric/autoNumeric.js"></script>
 
-<!--_____________________________________JAVASCRIPT FILES___________________________________________-->
+<!--_____________________________________JAVASCRIPT FILES______________________________________-->
 
 
 
@@ -313,6 +334,22 @@ function capture(){
 
 <!------------------------------------------------------------CSS RULES------------------------------------------------------->
 <style type="text/css">
+.center {
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+.overlay{
+    
+   background-color:white;
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0px;
+    left:0px;
+    z-index:1000;
+   display:none;
+}
 .cam{
     font-size:50px;
 }
@@ -377,13 +414,15 @@ function capture(){
 }
 
 .header{
-    margin-top:20px;
+   
      font-family: 'Wire One', sans-serif;
-    font-size:60px;
+    font-size:120px;
     color:white !important;
     font-weight:bold;
 }
-
+.greyed{
+    color:gray;
+}
 </style>
 
 <!------------------------------------------------------------CSS RULES------------------------------------------------------->
@@ -397,6 +436,45 @@ function capture(){
 
 <!--------------------------------------------------JAVASCRIPT FUNCTIONS AND INITIALIZATIONS----------------------------------->
 <script type="text/javascript">
+
+
+
+
+/*-----------------------------------------------CAPTURE HOME DATA*--------------------------------------------------*/
+function capture(){
+  
+    var indexed=-1;
+    var container={};
+    $('input').each(function(index,val){
+        
+        if($(this).val()==""){
+         
+            indexed=index;
+           
+        }
+        else{
+            $('.error').html('');
+        }
+    });
+    if(indexed==-1){
+             container.price=parseInt($("#price").val()).toLocaleString();
+            container.locationof=$("#location").val();
+            container.telephone=$("#telephone").val();
+            container.accomodation=$("#accomodation").val();
+            container.type=$("#type").val();
+            container.pref=$('#gender').val();
+            container.lat=lat;
+            container.long=lng
+            $('#upload').openModal();
+    }
+   
+   
+    //return false;
+   
+}
+
+
+/*-----------------------------------------------CAPTURE HOME DATA*--------------------------------------------------*/
 
 
 
@@ -417,7 +495,34 @@ $(".button-collapse").sideNav();
   });
 /*++++++++++++++++++++++++++++++++++++++++INITIALIZING SIDE NAVIGATION++++++++++++++++++++++++++++++++++++++++++++++*/
 
-$("#finish").on('click',capture);
+$("#finish").on('click',function(){
+    var checker=[];
+   var error=0;
+    checker.push($("#price").val());
+    checker.push($("#location").val());
+   checker.push($("#telephone").val());
+    checker.push($("#gender").val());
+   checker.push($("#type").val());
+   checker.push($("#accomodation").val());
+   console.log(checker);
+  for (var i=0;i<checker.length;i++){
+      if(checker[i]=="" || checker[i]==null || checker[i]=="(   )    -    "){
+          $(".error").html("<center>All fields are required</center>");
+           error+=1;
+          break;
+         
+      }
+      
+  }
+   if(error==0){
+     
+            $(".error").html("");
+             $('#upload').openModal();
+   }
+    
+    
+    
+});
 
 
 
@@ -437,9 +542,65 @@ $('.dropify').dropify();
 /*++++++++++++++++++++++++++++++++++++++++++++++++++INPUT VALIDATION+++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 
-$("#done").on('click',function(){
-   console.log($('.dropify').val()); 
+$(".doneForm").on('submit',function(event){ 
+    arr=[];
+     event.preventDefault();
+    $(".overlay").show();
+    var formData=new FormData(this[0]);
+  /*  var array = $.map(formData, function(value, index) {
+    return [value];
+});*/
+///console.log($('#fileSelect').val());
+    
+   $.ajax({
+      type:"POST",
+      url:"uploader.php",
+      data:  new FormData(this),
+     contentType: false,
+    cache: false,
+    processData:false,
+      success:function(response){
+          
+          $(".overlay").hide();
+          console.log(response);
+           Materialize.toast('Property has been added!', 4000)
+      }
+   });
+    
+ 
 });
+
+/*+++++++++++++++++++++++++++++++++++++++++++++FORMAT CURRENCY IN THE PRICE FIELD++++++++++++++++++++++++++++++++++++++++*/
+
+
+/*$(document).ready(function(){
+    document.getElementById("price").value="$"
+});*/
+
+/*var curr="";
+function commas(x){
+    if(isNaN(x)){
+    return
+    }
+    if(x.length<=3){
+        return x+curr+".00";
+    }
+    else{
+        curr=curr+","+x.substring(x.length-3,x.length);
+        return commas(x.substring(0,x.length-3));
+    }
+    
+}*/
+ $("#price").autoNumeric('init');
+
+/*$("#price").keyup(function(){
+   var value=$(this).val();
+
+  
+  
+    
+});*/
+/*+++++++++++++++++++++++++++++++++++++++++++++FORMAT CURRENCY IN THE PRICE FIELD++++++++++++++++++++++++++++++++++++++++*/
 </script>
 
 <!--------------------------------------------------JAVASCRIPT FUNCTIONS AND INITIALIZATIONS----------------------------------->

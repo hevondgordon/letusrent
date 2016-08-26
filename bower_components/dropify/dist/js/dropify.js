@@ -44,9 +44,9 @@ function Dropify(element, options) {
         imgFileExtensions: ['png', 'jpg', 'jpeg', 'gif', 'bmp'],
         maxFileSizePreview: "5M",
         allowedFormats: ['portrait', 'square', 'landscape'],
-        allowedFileExtensions: ['*'],
+        allowedFileExtensions: ['jpeg','jpg','png'],
         messages: {
-            'default': 'Drag and drop a file here or click',
+            'default': '<center>Drag and drop a file here or click to select photo<center/>',
             'replace': 'Drag and drop or click to replace',
             'remove':  'Remove',
             'error':   'Ooops, something wrong appended.'
