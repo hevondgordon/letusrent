@@ -319,7 +319,7 @@ session_start();
  
 <!--_____________________________________JAVASCRIPT FILES___________________________________________-->
 
-<script type="text/javascript" src="bower_components/formatter/dist/jquery.formatter.js"></script>
+<script type="text/javascript" src="bower_components/jquery-mask-plugin/src/jquery.mask.js"></script>
 <script type="text/javascript" src="bower_components/autoNumeric/autoNumeric.js"></script>
 
 <!--_____________________________________JAVASCRIPT FILES______________________________________-->
@@ -496,15 +496,16 @@ $(".button-collapse").sideNav();
 /*++++++++++++++++++++++++++++++++++++++++INITIALIZING SIDE NAVIGATION++++++++++++++++++++++++++++++++++++++++++++++*/
 
 $("#finish").on('click',function(){
-    var checker=[];
+    var data={};
    var error=0;
+   var checker=[];
     checker.push($("#price").val());
     checker.push($("#location").val());
    checker.push($("#telephone").val());
     checker.push($("#gender").val());
    checker.push($("#type").val());
-   checker.push($("#accomodation").val());
-   console.log(checker);
+   checker.push($("#accomodation").val());                                                                                 
+   //console.log(reformat(($("#price").val())));
   for (var i=0;i<checker.length;i++){
       if(checker[i]=="" || checker[i]==null || checker[i]=="(   )    -    "){
           $(".error").html("<center>All fields are required</center>");
@@ -514,10 +515,23 @@ $("#finish").on('click',function(){
       }
       
   }
+  
+  for(var t=0;t<checker.length;t++){
+      data[t]=checker[t];
+  }
    if(error==0){
      
             $(".error").html("");
+            $.ajax({
+                url:"",
+                type:"POST",
+                data:data,
+                success:function(response){
+                    
+                }
+            });
              $('#upload').openModal();
+            
    }
     
     
@@ -527,10 +541,7 @@ $("#finish").on('click',function(){
 
 
 /*+++++++++++++++++++++++++++++++++++++++++FORMATTER FOR TELEPHONE NUMBER++++++++++++++++++++++++++++++++++++++++++++*/
-$('#telephone').formatter({
-  'pattern': '({{999}}) {{999}}-{{9999}}',
-  'persistent': true
-});
+
 /*+++++++++++++++++++++++++++++++++++++++++FORMATTER FOR TELEPHONE NUMBER++++++++++++++++++++++++++++++++++++++++++++*/
 
 
@@ -554,7 +565,7 @@ $(".doneForm").on('submit',function(event){
     
    $.ajax({
       type:"POST",
-      url:"uploader.php",
+      url:"uploadImage.php",
       data:  new FormData(this),
      contentType: false,
     cache: false,
@@ -563,7 +574,13 @@ $(".doneForm").on('submit',function(event){
           
           $(".overlay").hide();
           console.log(response);
-           Materialize.toast('Property has been added!', 4000)
+          if(response==""){
+               Materialize.toast('Property has been added!', 4000)
+          }
+          else {
+              $(".error").html("<center>"+response+"</center>");
+          }
+          
       }
    });
     
@@ -573,11 +590,22 @@ $(".doneForm").on('submit',function(event){
 /*+++++++++++++++++++++++++++++++++++++++++++++FORMAT CURRENCY IN THE PRICE FIELD++++++++++++++++++++++++++++++++++++++++*/
 
 
-/*$(document).ready(function(){
-    document.getElementById("price").value="$"
-});*/
+$(document).ready(function(){
+   $("#telephone").mask("(000) 000-0000")
+});
 
-/*var curr="";
+function reformat(c){
+    var newVal=c.substring(1);
+    var t=newVal.split(",");
+    var ret="";
+    for (var i=0;i<t.length;i++){
+        ret+=t[i];
+    }
+    newVal=ret.split('.')
+    return newVal[0];
+}
+
+/*var curr=
 function commas(x){
     if(isNaN(x)){
     return
@@ -591,6 +619,7 @@ function commas(x){
     }
     
 }*/
+
  $("#price").autoNumeric('init');
 
 /*$("#price").keyup(function(){
