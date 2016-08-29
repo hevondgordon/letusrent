@@ -15,6 +15,7 @@ session_start();
         <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Wire+One' rel='stylesheet' type='text/css'>
+        <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:100" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="bower_components/dropify/dist/css/dropify.css" type="text/css" />
         
@@ -189,12 +190,12 @@ session_start();
     <!----------------------------------------ADD PROPERTY------------------------------------------------->
     <div id="add-prop" class="col s12">
      
-           <p><center><span class="map-label">Click to <span class="color">ADD MARKER</span> to the community in which your home is located.</span></center></p>
+          <center><div class="map-label instruction">Click to <span class="color">ADD MARKER</span> to the community in which your home is located.</div></center>
            
            <div id="map"></div>
            
            
-           <p><center><strong><span class="map-label larger-text">Enter your <span class="color">home</span> details</span></strong></center></p>
+           <p><center><strong><div class="map-label larger-text">Enter your <span class="color">HOME</span> details</div></strong></center></p>
            <p class="error"></p>
   
     
@@ -225,6 +226,7 @@ session_start();
                 <label>Accomodation</label>
             </div>
             
+            
             <div class="input-field col l6 s12">
                 <select id="type">
                   <option value="" disabled selected>Select Rent Type</option>
@@ -245,7 +247,7 @@ session_start();
             </div>
            
             
-            <button class="col l6 s6 waves-effect waves-light btn" id="finish">Finish</button>
+            <button class="col l6 s6 waves-effect waves-light btn" id="finish">Submit</button>
             <button class="col l6 s6 waves-effect waves-light btn" id="more">Add More</button>
      
      
@@ -361,8 +363,9 @@ session_start();
 .error{
     color:red;
     padding:10px;
-    font-size:24px;
-    font-family: 'Open Sans Condensed', sans-serif;
+    font-size:3rem;
+   font-family: 'Alegreya Sans', sans-serif;
+   display:none;
 }
 .btn{
     border-radius:0px;
@@ -379,15 +382,23 @@ session_start();
 .color{
     color:#33CCFF;
 }
+
+
+
+
 .map-label{
     color:#8c8c8c;
     padding-top:20px;
     font-weight:bold;
+     font-family: 'Alegreya Sans', sans-serif;
+     font-size:1.8rem;
 }
+
 
 .tabs .indicator { 
     background-color:#33CCFF;
 }
+
 .tabs .tab a {
   color:#33CCFF;
 }
@@ -400,18 +411,29 @@ session_start();
 #map{
     height:400px;
 }
-
-@media only screen and (min-width: 320px) and (max-width: 480px) {
+.instruction{
+     font-size:1.8rem;
+      font-family: 'Alegreya Sans', sans-serif;
+      padding:30px;
+ }
+@media screen and (min-width: 320px) and (max-width: 640px) {
+.map-label{
+     font-size:1.2rem;
+}
   #map {
     height:300px;
   }
  .space{
      height:70px;
  }
+
+ .instruction{
+     font-size:1.2rem;
+      font-family: 'Alegreya Sans', sans-serif;
+ }
+ 
 }
-.larger-text{
-    font-size:20px;
-}
+
 
 .header{
    
@@ -420,6 +442,7 @@ session_start();
     color:white !important;
     font-weight:bold;
 }
+
 .greyed{
     color:gray;
 }
@@ -510,24 +533,27 @@ $("#finish").on('click',function(){
       if(checker[i]=="" || checker[i]==null || checker[i]=="(   )    -    "){
           $(".error").html("<center>All fields are required</center>");
            error+=1;
+           $(".error").show();
           break;
          
       }
-      
   }
   
   for(var t=0;t<checker.length;t++){
-      data[t]=checker[t];
+      if(checker[t]!==undefined)data[t]=checker[t];
   }
+ // console.log(data);
    if(error==0){
      
             $(".error").html("");
+             $(".error").hide();
+            
             $.ajax({
-                url:"",
+                url:"uploadRenterData.php",
                 type:"POST",
                 data:data,
                 success:function(response){
-                    
+                    console.log(response);
                 }
             });
              $('#upload').openModal();
