@@ -170,7 +170,11 @@ session_start();
         <li><a href="collapsible.html">Javascript</a></li>
         <li><a href="mobile.html">Mobile</a></li>
       </ul>
+      
+     
+      
     </div>
+    
 </nav>
 <!--_______________________________NAVBAR_______________________________________ -->
 
@@ -193,9 +197,42 @@ session_start();
           <center><div class="map-label instruction">Click to <span class="color">ADD MARKER</span> to the community in which your home is located.</div></center>
            
            <div id="map"></div>
+            <div class="progress"></div>
            
-           
+        <!----------------------------------------------------------NOTE TO THE USER----------------------------------------------------------->
+                <!--<ul class="collapsible" data-collapsible="accordion">
+                    <li>
+                      <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+                      <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                    </li>
+                   
+              </ul>-->
+        <!----------------------------------------------------------NOTE TO THE USER----------------------------------------------------------->
+       
+            <div class="space container">
+              
+             <div class="col l2"></div>
+             
+             
+              <div class="col l8 "></div>
+              
+              
+              
+               <div class="col l2"></div>
+               <!-- <div class="col l3  s3 m3 parent-tracker"><div class="runner"></div></div><div class="col s1 m1 l1 circle"></div>
+                <div class="col l3  s3 m3 parent-tracker"><div class="runner"></div></div><div class="col s1 m1 l1 circle"></div>-->
+              
+            </div>
+            
+       
            <p><center><strong><div class="map-label larger-text">Enter your <span class="color">HOME</span> details</div></strong></center></p>
+           
+           
+           
+   
+           
+           
+           
            <p class="error"></p>
   
     
@@ -247,7 +284,7 @@ session_start();
             </div>
            
             
-            <button class="col l6 s6 waves-effect waves-light btn" id="finish">Submit</button>
+            <button class="col l6 s6 waves-effect waves-light btn" id="finish">continue</button>
             <button class="col l6 s6 waves-effect waves-light btn" id="more">Add More</button>
      
      
@@ -336,6 +373,43 @@ session_start();
 
 <!------------------------------------------------------------CSS RULES------------------------------------------------------->
 <style type="text/css">
+
+.progress{
+      width:0px;
+    background-color:#33CCFF;
+   
+}
+.circle {
+	width: 24px;
+	height: 24px;
+	background: red;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	border-radius: 12px;
+}
+
+div.parent-tracker{
+   
+    height:3px;
+    background-color:gray;
+    padding:0rem !important;
+}
+.runner{
+    background-color:blue;
+    height:6px;
+    width:0px;
+    margin:0px;
+}
+.pos-rel{
+    position:relative;
+    height:6px;
+    background-color:gray;
+}
+.pos-abs{
+    position:absolute;
+    height:4px;
+    background-color:red;
+}
 .center {
   margin: auto;
   position: absolute;
@@ -462,7 +536,18 @@ session_start();
 
 
 
-
+/*----------------------------------------------INITIALIZING ACCORDION--------------------------------------------------*/
+$(document).ready(function(){
+    $('.collapsible').collapsible({
+      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
+  });
+  
+ /*----------------------------------------------INITIALIZING ACCORDION--------------------------------------------------*/ 
+  
+  
+  
+  
 /*-----------------------------------------------CAPTURE HOME DATA*--------------------------------------------------*/
 function capture(){
   
@@ -518,8 +603,33 @@ $(".button-collapse").sideNav();
   });
 /*++++++++++++++++++++++++++++++++++++++++INITIALIZING SIDE NAVIGATION++++++++++++++++++++++++++++++++++++++++++++++*/
 
+
+
+function progressCalc(){
+     var width=$("#map").width()/3;
+     return width;
+     
+}
+
+
+/*==========================================CALCULATING HOW FAR THE PROGRESS BAR SHOULD RU====================----------------------*/
+
+var newWidth=0;
+function progress(){
+    
+     newWidth+=progressCalc();
+    $(".progress").animate({width:newWidth,height:"3px"},2000);
+}
+
+/*==========================================CALCULATING HOW FAR THE PROGRESS BAR SHOULD RU====================----------------------*/
+
+
 $("#finish").on('click',function(){
-    var data={};
+   
+    
+ 
+  
+   var data={};
    var error=0;
    var checker=[];
     checker.push($("#price").val());
